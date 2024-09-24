@@ -53,7 +53,7 @@ const Contact = () => {
     <section className="fixed bottom-0 right-0 p-6 z-50">
       {/* Floating action button */}
       <button
-        className="bg-oceanLight text-white p-4 rounded-full shadow-lg hover:bg-oceanBlue transition duration-300 ease-in-out fixed bottom-6 right-6"
+        className="bg-oceanLight text-black p-4 rounded-full shadow-lg hover:bg-oceanBlue transition duration-300 ease-in-out fixed bottom-6 right-6"
         onClick={() => setIsVisible(!isVisible)}
       >
         <i className="fas fa-envelope"></i>
@@ -117,10 +117,12 @@ const Contact = () => {
             </div>
             <button
               type="submit"
-              className="bg-oceanLight text-white px-6 py-3 rounded-md hover:bg-oceanBlue transition duration-300 ease-in-out w-full"
+              className="bg-gray-900 text-white px-6 py-3 rounded-md hover:bg-gray-700 transition duration-300 ease-in-out w-full"
             >
               Send Message
             </button>
+
+
           </form>
         )}
       </div>
