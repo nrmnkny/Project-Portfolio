@@ -9,6 +9,7 @@ const Contact = () => {
   });
 
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [error, setError] = useState(null);
 
   // Handle form field changes
   const handleChange = (e) => {
@@ -20,12 +21,29 @@ const Contact = () => {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (formData.name && formData.email && formData.message) {
-      setFormSubmitted(true);
-      console.log('Form data submitted:', formData);
+      try {
+        const response = await fetch('https://formspree.io/f/xjkbqzyw', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData),
+        });
+
+        if (response.ok) {
+          setFormSubmitted(true);
+          console.log('Form data submitted:', formData);
+        } else {
+          setError('Something went wrong. Please try again.');
+        }
+      } catch (err) {
+        console.error('Form submission error:', err);
+        setError('Failed to send your message. Please try again.');
+      }
     } else {
       alert('Please fill out all fields.');
     }
@@ -60,6 +78,7 @@ const Contact = () => {
         ) : (
           <form onSubmit={handleSubmit}>
             <h2 className="text-2xl font-bold text-center text-oceanBlue mb-6">Contact Me</h2>
+            {error && <p className="text-center text-red-500">{error}</p>}
             <div className="mb-4">
               <label htmlFor="name" className="block text-gray-700 font-semibold mb-2">Name</label>
               <input
